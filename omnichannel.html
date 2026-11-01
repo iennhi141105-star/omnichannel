@@ -21,7 +21,7 @@ a{text-decoration:none;color:inherit}
 .container{width:min(1160px,calc(100% - 40px));margin:auto}
 header{height:76px;position:sticky;top:0;background:#fff;z-index:30;border-bottom:1px solid var(--line)}
 .navbar{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0;background:none;border:none;padding:0}
 .brand-icon{height:40px;width:40px;border-radius:12px;background:linear-gradient(135deg,#398bff,#1748bf);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:800}
 .brand-name{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.7px}
 .brand-name span{color:var(--blue)}
@@ -83,7 +83,6 @@ header{height:76px;position:sticky;top:0;background:#fff;z-index:30;border-botto
 .card-icon{width:43px;height:43px;background:#eaf1ff;border-radius:11px;display:grid;place-items:center;font-size:21px;margin-bottom:16px}
 .card h3{font-size:14px;color:var(--navy);margin:0 0 9px}
 .card p{font-size:10px;line-height:1.85;color:var(--muted);margin:0}
-.text-link{display:inline-block;margin-top:13px;font-size:10px;color:var(--blue);font-weight:700}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
 .mockup{padding:27px;background:linear-gradient(140deg,#e9f2ff,#f6f9ff);border-radius:15px}
 .mockup-inner{background:#fff;padding:20px;border-radius:10px;box-shadow:var(--shadow)}
@@ -128,18 +127,6 @@ header{height:76px;position:sticky;top:0;background:#fff;z-index:30;border-botto
 .track{height:7px;background:#edf1f7;border-radius:9px;overflow:hidden}
 .track i{display:block;height:100%;background:#f4b449;border-radius:9px}
 .review-quote{padding:14px;background:#f7f9fd;border-radius:9px;margin-top:12px;font-size:10px;color:#53647b;line-height:1.8}
-.faq{max-width:780px;margin:auto}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;padding:17px 0;background:none;border:0;display:flex;justify-content:space-between;text-align:left;font-size:11px;font-weight:700;color:var(--navy)}
-.faq-a{display:none;padding:0 20px 17px 0;font-size:10px;line-height:1.9;color:var(--muted)}
-.faq-item.open .faq-a{display:block}
-.cta{background:linear-gradient(110deg,#123d9c,#1a6de7);padding:48px 0;color:white}
-.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
-.cta h2{font-size:24px;margin:0 0 8px}
-.cta p{font-size:11px;color:#d5e3ff;margin:0}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}
-.contact-grid h2{font-size:28px;color:var(--navy);margin:0 0 12px}
-.contact-grid p{font-size:11px;color:var(--muted);line-height:1.9}
 .form{padding:24px;background:white;border:1px solid var(--line);border-radius:13px}
 .form label{display:block;font-size:10px;font-weight:700;margin:12px 0 7px}
 .form input,.form textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;background:#fbfcff;outline:none;font-size:11px}
@@ -149,7 +136,7 @@ footer{background:var(--navy);color:white;padding:45px 0 20px}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:25px;padding-bottom:28px}
 .footer-grid h4{font-size:11px;margin:0 0 15px}
 .footer-grid p,.footer-grid a{font-size:10px;line-height:1.9;color:#a9bad6}
-.footer-grid a{display:block;margin:9px 0}
+.footer-grid a{display:block;margin:9px 0;cursor:pointer}
 .copy{border-top:1px solid #ffffff20;padding-top:17px;font-size:9px;color:#a9bad6}
 .chat-launch{position:fixed;right:23px;bottom:23px;z-index:80;width:58px;height:58px;border:0;border-radius:50%;background:var(--blue);color:white;box-shadow:0 7px 25px #1759d44a;font-size:25px}
 .chat-window{position:fixed;right:23px;bottom:92px;width:340px;max-width:calc(100vw - 30px);height:440px;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 15px 50px #10254c25;z-index:79;display:none;overflow:hidden}
@@ -181,7 +168,6 @@ header{height:66px}
 .nav-links.show{display:flex}
 .nav-links button{text-align:left;padding:13px 0;font-size:12px}
 .nav-links button.active:after{display:none}
-.nav-actions>.btn-outline{display:none}
 .hero{padding:48px 0}
 .hero-grid,.split,.contact-grid{grid-template-columns:1fr}
 .hero h1{font-size:34px}
@@ -194,7 +180,6 @@ header{height:66px}
 .steps{grid-template-columns:1fr 1fr}
 .price-grid{grid-template-columns:1fr}
 .review-grid{grid-template-columns:1fr}
-.cta-inner{align-items:flex-start;flex-direction:column}
 .footer-grid{grid-template-columns:1fr 1fr}
 .dash-layout{grid-template-columns:82px 1fr}
 .dash-side div{font-size:7px}
@@ -213,10 +198,10 @@ header{height:66px}
 
 <header>
  <div class="container navbar">
-  <a href="#" class="brand" onclick="go('home');return false">
+  <button class="brand" onclick="go('home')">
    <div class="brand-icon">O</div>
    <div class="brand-name">OmniFlow <span>AI</span></div>
-  </a>
+  </button>
   <nav class="nav-links" id="nav">
    <button data-page="home" class="active">Trang chủ</button>
    <button data-page="solutions">Giải pháp</button>
@@ -245,7 +230,7 @@ header{height:66px}
      <button class="btn btn-orange" onclick="go('pricing')">Khám phá gói dịch vụ →</button>
      <button class="btn btn-outline" onclick="go('solutions')">Tìm hiểu giải pháp</button>
     </div>
-    <div class="hero-small"><b>✓</b> Quản lý tập trung   <b>✓</b> Dữ liệu đồng bộ   <b>✓</b> Hỗ trợ AI</div>
+    <div class="hero-small"><b>✓</b> Quản lý tập trung &nbsp; <b>✓</b> Dữ liệu đồng bộ &nbsp; <b>✓</b> Hỗ trợ AI</div>
    </div>
    <div class="visual-wrap">
     <div class="dashboard">
@@ -354,7 +339,7 @@ header{height:66px}
 </main>
 
 <footer><div class="container"><div class="footer-grid">
- <div><a class="brand" href="#" onclick="go('home');return false"><div class="brand-icon">O</div><div class="brand-name" style="color:white">OmniFlow <span>AI</span></div></a><p>Nền tảng quản trị doanh nghiệp thông minh. Một hệ thống kết nối các hoạt động kinh doanh.</p></div>
+ <div><button class="brand" onclick="go('home')" style="text-align:left"><div class="brand-icon">O</div><div class="brand-name" style="color:white">OmniFlow <span>AI</span></div></button><p>Nền tảng quản trị doanh nghiệp thông minh. Một hệ thống kết nối các hoạt động kinh doanh.</p></div>
  <div><h4>Khám phá</h4><a onclick="go('home')">Trang chủ</a><a onclick="go('solutions')">Giải pháp</a><a onclick="go('about')">Về chúng tôi</a></div>
  <div><h4>Dịch vụ</h4><a onclick="go('experience')">Trải nghiệm khách hàng</a><a onclick="go('pricing')">Bảng giá</a><a onclick="go('solutions')">AI Assistant</a></div>
  <div><h4>Hỗ trợ</h4><a onclick="go('contact')">Liên hệ</a><a onclick="go('contact')">Tư vấn</a></div>
@@ -378,47 +363,50 @@ header{height:66px}
 <script>
 // CHUYỂN TRANG NỘI BỘ
 function go(id){
- if(!document.getElementById(id)) return;
+ const targetPage = document.getElementById(id);
+ if(!targetPage) return;
+
  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
- const page = document.getElementById(id);
- page.classList.add('active');
- document.querySelectorAll('.nav-links button').forEach(b => b.classList.toggle('active', b.dataset.page === id));
+ targetPage.classList.add('active');
+
+ document.querySelectorAll('.nav-links button').forEach(b => {
+  b.classList.toggle('active', b.dataset.page === id);
+ });
+
  const nav = document.getElementById('nav');
  if(nav) nav.classList.remove('show');
- window.scrollTo({top: 0, behavior: 'instant'});
- history.pushState({page: id}, '', '#' + id);
+
+ window.scrollTo({top:0, behavior:'instant'});
+
+ if (window.location.hash !== '#' + id) {
+  history.pushState({page: id}, '', '#' + id);
+ }
 }
 
 document.querySelectorAll('.nav-links button').forEach(b => {
  b.addEventListener('click', () => go(b.dataset.page));
 });
 
-// Hỗ trợ nút back/forward của trình duyệt
 window.addEventListener('popstate', () => {
  const id = location.hash.replace('#', '') || 'home';
- if(document.getElementById(id)){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-links button').forEach(b => b.classList.toggle('active', b.dataset.page === id));
-  window.scrollTo(0, 0);
- }
+ go(id);
 });
 
 const toggleBtn = document.getElementById('toggle');
 if(toggleBtn){
  toggleBtn.addEventListener('click', () => {
-  const nav = document.getElementById('nav');
-  if(nav) nav.classList.toggle('show');
+  document.getElementById('nav').classList.toggle('show');
  });
 }
 
-// Khởi tạo trang ban đầu dựa trên Hash URL
-const startPage = location.hash.replace('#', '');
-if(startPage && document.getElementById(startPage)){
- go(startPage);
-} else {
- history.replaceState({page: 'home'}, '', '#home');
-}
+window.addEventListener('DOMContentLoaded', () => {
+ const startPage = location.hash.replace('#', '');
+ if(startPage && document.getElementById(startPage)){
+  go(startPage);
+ } else {
+  history.replaceState({page: 'home'}, '', '#home');
+ }
+});
 
 // BẢNG SO SÁNH
 const comparison = [
@@ -433,23 +421,20 @@ const comparison = [
  ['Hỗ trợ','Tiêu chuẩn','Ưu tiên','Riêng']
 ];
 
-const compEl = document.getElementById('comparison');
-if(compEl){
- compEl.innerHTML = comparison.map(r => `<tr>${r.map((v, i) => `<td style="padding:14px;border-bottom:1px solid var(--line);text-align:${i ? 'center' : 'left'};color:${i && v === '✓' ? '#159d73' : '#53647a'};font-weight:${i ? '600' : '500'}">${v}</td>`).join('')}</tr>`).join('');
+const compBody = document.getElementById('comparison');
+if(compBody){
+ compBody.innerHTML = comparison.map(r => 
+  `<tr>${r.map((v, i) => `<td style="padding:14px;border-bottom:1px solid var(--line);text-align:${i ? 'center' : 'left'};color:${i && v === '✓' ? '#159d73' : '#53647a'};font-weight:${i ? '600' : '500'}">${v}</td>`).join('')}</tr>`
+ ).join('');
 }
 
 function choosePlan(plan){
  go('contact');
- const planSelect = document.querySelector('[name="plan"]');
- if(planSelect) planSelect.value = plan;
+ const selectPlan = document.querySelector('[name="plan"]');
+ if(selectPlan) selectPlan.value = plan;
  const contactGrid = document.querySelector('.contact-grid');
  if(contactGrid) contactGrid.scrollIntoView({block: 'start'});
 }
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(b => {
- b.addEventListener('click', () => b.parentElement.classList.toggle('open'));
-});
 
 // CHATBOT DEMO
 const chatWindow = document.getElementById('chatWindow');
@@ -499,9 +484,7 @@ function sendChat(){
 const chatSend = document.getElementById('chatSend');
 if(chatSend) chatSend.onclick = sendChat;
 if(chatInput){
- chatInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter') sendChat();
- });
+ chatInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendChat(); });
 }
 
 document.querySelectorAll('.quick-questions button').forEach(b => {
