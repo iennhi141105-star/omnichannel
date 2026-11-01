@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniFlow AI | Quản trị kinh doanh thông minh</title>
+<meta name="description" content="OmniFlow AI - Nền tảng quản trị doanh nghiệp, bán hàng, kho hàng, khách hàng và trải nghiệm khách hàng.">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--blue:#1759d4;--blue2:#367ff4;--navy:#10254c;
+--ink:#1b2d49;--muted:#74829a;--bg:#f5f8ff;
+--line:#e7edf6;--orange:#ff9e46;--green:#16a477;
+--white:#fff;--shadow:0 12px 35px rgba(22,58,115,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);background:#fff}
+button,input,textarea,select{font:inherit}
+button,a{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1160px,calc(100% - 40px));margin:auto}
+header{height:76px;position:sticky;top:0;background:#fff;z-index:30;border-bottom:1px solid var(--line)}
+.navbar{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand-icon{height:40px;width:40px;border-radius:12px;background:linear-gradient(135deg,#398bff,#1748bf);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:800}
+.brand-name{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.7px}
+.brand-name span{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:23px}
+.nav-links button{background:none;border:0;color:#52617a;font-size:12px;font-weight:600;padding:12px 0;position:relative}
+.nav-links button.active,.nav-links button:hover{color:var(--blue)}
+.nav-links button.active:after{content:"";position:absolute;height:2px;background:var(--blue);bottom:3px;left:0;right:0}
+.btn{border:0;border-radius:8px;padding:12px 18px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px #1759d426}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-orange{background:var(--orange);color:#3b270d}
+.btn-outline{background:#fff;color:var(--blue);border:1px solid #dce5f5}
+.mobile-toggle{display:none;background:white;border:1px solid var(--line);padding:8px;border-radius:8px;font-size:20px}
+.page{display:none;min-height:calc(100vh - 76px);animation:enter .35s ease}
+.page.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:linear-gradient(120deg,#f1f6ff,#e8f1ff 65%,#f7faff);padding:76px 0 70px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.08fr;align-items:center;gap:50px}
+.eyebrow{display:inline-flex;background:#e1edff;color:var(--blue);padding:8px 13px;border-radius:30px;font-size:10px;font-weight:800;letter-spacing:.5px;margin-bottom:20px}
+.hero h1{font-size:43px;line-height:1.27;letter-spacing:-1.7px;color:var(--navy);margin:0 0 18px}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:13px;color:var(--muted);line-height:1.95;margin-bottom:25px}
+.actions{display:flex;gap:11px;flex-wrap:wrap}
+.hero-small{font-size:10px;color:#8996a9;margin-top:17px}
+.hero-small b{color:var(--green)}
+.dashboard{background:white;border:1px solid #e4ebf6;border-radius:16px;padding:14px;box-shadow:0 25px 60px #1c4d9220;transform:rotate(-1deg)}
+.dash-head{display:flex;justify-content:space-between;align-items:center;padding:5px 6px 15px;font-size:11px;font-weight:800;color:var(--navy)}
+.dash-user{width:28px;height:28px;border-radius:50%;background:#e8efff;color:var(--blue);display:grid;place-items:center}
+.dash-layout{display:grid;grid-template-columns:110px 1fr;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.dash-side{background:#f6f8fc;padding:12px 8px}
+.dash-side div{padding:9px 7px;font-size:8px;color:#77849a;border-radius:5px;margin-bottom:4px}
+.dash-side .on{background:#e7efff;color:var(--blue);font-weight:700}
+.dash-main{padding:16px;min-width:0}
+.dash-main h3{font-size:12px;margin:0 0 5px}
+.dash-main p{font-size:8px;margin:0 0 13px}
+.dash-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.dash-card{border:1px solid var(--line);padding:10px 7px;border-radius:7px}
+.dash-card small{font-size:7px;color:var(--muted)}
+.dash-card strong{display:block;font-size:12px;margin-top:6px}
+.dash-card em{font-size:7px;color:var(--green);font-style:normal}
+.bars{height:105px;display:flex;align-items:flex-end;justify-content:space-around;border:1px solid var(--line);border-radius:8px;margin-top:10px;padding:10px}
+.bars i{width:9%;background:#c6d9ff;border-radius:4px 4px 0 0}
+.bars i:nth-child(2n){background:var(--blue)}
+.float-note{background:white;border-radius:9px;box-shadow:var(--shadow);padding:12px;position:absolute;margin-top:-45px;margin-left:-20px;font-size:9px}
+.float-note strong{display:block;font-size:14px;color:var(--green);margin-top:4px}
+.visual-wrap{position:relative}
+.section{padding:76px 0}
+.light{background:var(--bg)}
+.section-head{text-align:center;max-width:720px;margin:0 auto 38px}
+.kicker{font-size:10px;letter-spacing:1.3px;font-weight:800;color:var(--blue);margin-bottom:12px}
+.section-head h2{font-size:30px;line-height:1.4;letter-spacing:-.8px;color:var(--navy);margin:0 0 12px}
+.section-head p{font-size:12px;line-height:1.9;color:var(--muted)}
+.trust{padding:25px 0;border-bottom:1px solid var(--line);text-align:center}
+.trust p{font-size:10px;color:var(--muted);font-weight:600}
+.trust-list{display:flex;justify-content:center;gap:38px;flex-wrap:wrap;color:#8291a8;font-size:12px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{border:1px solid var(--line);background:white;border-radius:13px;padding:22px;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#c8dcff}
+.card-icon{width:43px;height:43px;background:#eaf1ff;border-radius:11px;display:grid;place-items:center;font-size:21px;margin-bottom:16px}
+.card h3{font-size:14px;color:var(--navy);margin:0 0 9px}
+.card p{font-size:10px;line-height:1.85;color:var(--muted);margin:0}
+.text-link{display:inline-block;margin-top:13px;font-size:10px;color:var(--blue);font-weight:700}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
+.mockup{padding:27px;background:linear-gradient(140deg,#e9f2ff,#f6f9ff);border-radius:15px}
+.mockup-inner{background:#fff;padding:20px;border-radius:10px;box-shadow:var(--shadow)}
+.mockup-inner h3{font-size:13px;margin:0 0 16px}
+.data-row{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);font-size:10px;color:var(--muted)}
+.data-row strong{color:var(--navy)}
+.split-copy h2{font-size:28px;line-height:1.4;color:var(--navy);margin:0 0 14px}
+.split-copy p{font-size:12px;line-height:1.9;color:var(--muted)}
+.checks{list-style:none;padding:0;margin:20px 0}
+.checks li{font-size:11px;margin:13px 0;color:#596b82}
+.checks li:before{content:"✓";color:var(--green);font-weight:800;margin-right:10px}
+.industry-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.industry{padding:20px;border:1px solid var(--line);border-radius:12px}
+.industry div{font-size:25px;margin-bottom:12px}
+.industry h3{font-size:12px;margin:0 0 8px}
+.industry p{font-size:10px;color:var(--muted);line-height:1.7;margin:0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.step{background:white;border:1px solid var(--line);padding:20px;border-radius:12px}
+.step b{display:grid;place-items:center;width:34px;height:34px;background:var(--blue);color:white;border-radius:9px;margin-bottom:14px}
+.step h3{font-size:12px;margin:0 0 8px}
+.step p{font-size:10px;color:var(--muted);line-height:1.8;margin:0}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;align-items:stretch}
+.price-card{background:white;border:1px solid var(--line);border-radius:14px;padding:24px;position:relative}
+.price-card.featured{border:2px solid var(--blue);box-shadow:0 12px 35px #1759d41c}
+.tag{position:absolute;right:14px;top:14px;background:#eaf1ff;color:var(--blue);font-size:9px;font-weight:800;padding:6px 9px;border-radius:20px}
+.price-card h3{font-size:15px;margin:0 0 7px;color:var(--navy)}
+.price-card .desc{font-size:10px;color:var(--muted);min-height:35px;line-height:1.7}
+.price{font-size:29px;font-weight:800;color:var(--navy);margin:19px 0 3px}
+.price small{font-size:10px;color:var(--muted);font-weight:500}
+.price-card ul{list-style:none;padding:0;margin:20px 0}
+.price-card li{font-size:10px;color:#5e6f86;margin:13px 0}
+.price-card li:before{content:"✓";color:var(--green);font-weight:800;margin-right:9px}
+.price-card .btn{width:100%}
+.price-foot{text-align:center;font-size:10px;color:var(--muted);margin-top:20px;line-height:1.8}
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.review-box{background:white;border:1px solid var(--line);border-radius:13px;padding:23px}
+.review-box h3{font-size:14px;margin:0 0 8px}
+.review-box p{font-size:10px;color:var(--muted);line-height:1.8}
+.stars{color:#f3a62f;letter-spacing:3px;font-size:17px}
+.review-score{font-size:35px;font-weight:800;color:var(--navy)}
+.rating-row{display:grid;grid-template-columns:30px 1fr 30px;align-items:center;gap:9px;margin:10px 0;font-size:9px;color:var(--muted)}
+.track{height:7px;background:#edf1f7;border-radius:9px;overflow:hidden}
+.track i{display:block;height:100%;background:#f4b449;border-radius:9px}
+.review-quote{padding:14px;background:#f7f9fd;border-radius:9px;margin-top:12px;font-size:10px;color:#53647b;line-height:1.8}
+.faq{max-width:780px;margin:auto}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;padding:17px 0;background:none;border:0;display:flex;justify-content:space-between;text-align:left;font-size:11px;font-weight:700;color:var(--navy)}
+.faq-a{display:none;padding:0 20px 17px 0;font-size:10px;line-height:1.9;color:var(--muted)}
+.faq-item.open .faq-a{display:block}
+.cta{background:linear-gradient(110deg,#123d9c,#1a6de7);padding:48px 0;color:white}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.cta h2{font-size:24px;margin:0 0 8px}
+.cta p{font-size:11px;color:#d5e3ff;margin:0}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.contact-grid h2{font-size:28px;color:var(--navy);margin:0 0 12px}
+.contact-grid p{font-size:11px;color:var(--muted);line-height:1.9}
+.form{padding:24px;background:white;border:1px solid var(--line);border-radius:13px}
+.form label{display:block;font-size:10px;font-weight:700;margin:12px 0 7px}
+.form input,.form textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;background:#fbfcff;outline:none;font-size:11px}
+.form textarea{height:85px;resize:vertical}
+.form button{width:100%;margin-top:15px}
+footer{background:var(--navy);color:white;padding:45px 0 20px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:25px;padding-bottom:28px}
+.footer-grid h4{font-size:11px;margin:0 0 15px}
+.footer-grid p,.footer-grid a{font-size:10px;line-height:1.9;color:#a9bad6}
+.footer-grid a{display:block;margin:9px 0}
+.copy{border-top:1px solid #ffffff20;padding-top:17px;font-size:9px;color:#a9bad6}
+.chat-launch{position:fixed;right:23px;bottom:23px;z-index:80;width:58px;height:58px;border:0;border-radius:50%;background:var(--blue);color:white;box-shadow:0 7px 25px #1759d44a;font-size:25px}
+.chat-window{position:fixed;right:23px;bottom:92px;width:340px;max-width:calc(100vw - 30px);height:440px;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 15px 50px #10254c25;z-index:79;display:none;overflow:hidden}
+.chat-window.open{display:flex;flex-direction:column;animation:enter .2s}
+.chat-head{background:var(--blue);color:white;padding:15px;display:flex;justify-content:space-between;align-items:center}
+.chat-head strong{font-size:12px}
+.chat-head small{display:block;font-size:9px;color:#d8e7ff;margin-top:4px}
+.chat-head button{background:transparent;border:0;color:white;font-size:20px}
+.chat-messages{padding:14px;flex:1;overflow:auto;background:#f7f9fd}
+.msg{max-width:88%;padding:10px 12px;border-radius:11px;font-size:10px;line-height:1.7;margin:9px 0;white-space:pre-wrap}
+.bot{background:white;border:1px solid var(--line);color:var(--ink);border-top-left-radius:3px}
+.user{background:#e5efff;color:#1649a5;margin-left:auto;border-top-right-radius:3px}
+.quick-questions{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px;background:white}
+.quick-questions button{font-size:9px;background:#f0f5ff;border:1px solid #dce8ff;border-radius:20px;padding:6px 9px;color:var(--blue)}
+.chat-input{display:flex;gap:7px;padding:11px;border-top:1px solid var(--line)}
+.chat-input input{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:10px;outline:none}
+.chat-input button{border:0;background:var(--blue);color:white;border-radius:8px;padding:0 13px}
+.toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);padding:12px 17px;background:var(--navy);color:white;border-radius:9px;font-size:10px;z-index:100;display:none;max-width:90vw}
+.toast.show{display:block}
+@media(max-width:900px){
+.nav-links{gap:12px}.nav-links button{font-size:10px}
+.hero-grid{gap:25px}.hero h1{font-size:35px}
+.industry-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+header{height:66px}
+.mobile-toggle{display:block}
+.nav-links{display:none;position:absolute;top:65px;left:0;right:0;background:white;padding:14px 22px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:0}
+.nav-links.show{display:flex}
+.nav-links button{text-align:left;padding:13px 0;font-size:12px}
+.nav-links button.active:after{display:none}
+.nav-actions>.btn-outline{display:none}
+.hero{padding:48px 0}
+.hero-grid,.split,.contact-grid{grid-template-columns:1fr}
+.hero h1{font-size:34px}
+.visual-wrap{margin:15px 5px}
+.section{padding:58px 0}
+.section-head h2{font-size:25px}
+.cards{grid-template-columns:1fr 1fr;gap:10px}
+.card{padding:16px}
+.industry-grid{grid-template-columns:1fr 1fr}
+.steps{grid-template-columns:1fr 1fr}
+.price-grid{grid-template-columns:1fr}
+.review-grid{grid-template-columns:1fr}
+.cta-inner{align-items:flex-start;flex-direction:column}
+.footer-grid{grid-template-columns:1fr 1fr}
+.dash-layout{grid-template-columns:82px 1fr}
+.dash-side div{font-size:7px}
+}
+@media(max-width:420px){
+.container{width:calc(100% - 30px)}
+.hero h1{font-size:29px}
+.cards{grid-template-columns:1fr}
+.steps{grid-template-columns:1fr}
+.dash-main{padding:10px 7px}
+.dash-card strong{font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container navbar">
+  <a href="#" class="brand" onclick="go('home');return false">
+   <div class="brand-icon">O</div>
+   <div class="brand-name">OmniFlow <span>AI</span></div>
+  </a>
+  <nav class="nav-links" id="nav">
+   <button data-page="home" class="active">Trang chủ</button>
+   <button data-page="solutions">Giải pháp</button>
+   <button data-page="experience">Khách hàng</button>
+   <button data-page="pricing">Bảng giá</button>
+   <button data-page="about">Về chúng tôi</button>
+   <button data-page="contact">Liên hệ</button>
+  </nav>
+  <div style="display:flex;gap:8px;align-items:center">
+   <button class="btn btn-outline" onclick="go('contact')">Đăng nhập</button>
+   <button class="btn btn-primary" onclick="go('pricing')">Dùng thử ngay</button>
+   <button class="mobile-toggle" id="toggle">☰</button>
+  </div>
+ </div>
+</header>
+
+<!-- TRANG CHỦ -->
+<main class="page active" id="home">
+ <section class="hero">
+  <div class="container hero-grid">
+   <div>
+    <div class="eyebrow">✦ NỀN TẢNG QUẢN TRỊ DOANH NGHIỆP THÔNG MINH</div>
+    <h1>Một nền tảng.<br><span>Mọi hoạt động</span> kinh doanh.</h1>
+    <p>OmniFlow AI kết nối bán hàng, đơn hàng, kho hàng, khách hàng và trải nghiệm người mua trên một nền tảng duy nhất. Quản lý dễ dàng hơn, vận hành hiệu quả hơn và phát triển bền vững hơn.</p>
+    <div class="actions">
+     <button class="btn btn-orange" onclick="go('pricing')">Khám phá gói dịch vụ →</button>
+     <button class="btn btn-outline" onclick="go('solutions')">Tìm hiểu giải pháp</button>
+    </div>
+    <div class="hero-small"><b>✓</b> Quản lý tập trung &nbsp; <b>✓</b> Dữ liệu đồng bộ &nbsp; <b>✓</b> Hỗ trợ AI</div>
+   </div>
+   <div class="visual-wrap">
+    <div class="dashboard">
+     <div class="dash-head"><span>OmniFlow <span style="color:var(--blue)">AI</span> / Dashboard</span><span class="dash-user">AD</span></div>
+     <div class="dash-layout">
+      <div class="dash-side"><div class="on">▦ Tổng quan</div><div>▣ Sản phẩm</div><div>🛒 Đơn hàng</div><div>▤ Kho hàng</div><div>♙ Khách hàng</div><div>★ Đánh giá</div><div>✦ AI Assistant</div></div>
+      <div class="dash-main">
+       <h3>Tổng quan kinh doanh</h3><p>Theo dõi hoạt động doanh nghiệp</p>
+       <div class="dash-cards">
+        <div class="dash-card"><small>Doanh thu</small><strong>128,5 tr</strong><em>↑ 12,8%</em></div>
+        <div class="dash-card"><small>Đơn hàng</small><strong>356</strong><em>↑ 8,2%</em></div>
+        <div class="dash-card"><small>Khách hàng</small><strong>1.284</strong><em>↑ 5,4%</em></div>
+       </div>
+       <div class="bars"><i style="height:40%"></i><i style="height:65%"></i><i style="height:53%"></i><i style="height:80%"></i><i style="height:62%"></i><i style="height:94%"></i><i style="height:72%"></i></div>
+      </div>
+     </div>
+    </div>
+    <div class="float-note">Chỉ số hài lòng khách hàng<strong>★ 4.8/5</strong></div>
+   </div>
+  </div>
+ </section>
+ <section class="trust"><div class="container"><p>MỘT HỆ THỐNG – KẾT NỐI MỌI HOẠT ĐỘNG</p><div class="trust-list"><span>▦ Bán hàng</span><span>▣ Sản phẩm</span><span>▤ Kho hàng</span><span>★ Trải nghiệm khách hàng</span><span>✦ AI Assistant</span></div></div></section>
+ <section class="section">
+  <div class="container">
+   <div class="section-head"><div class="kicker">OMNIFLOW AI ECOSYSTEM</div><h2>Quản lý doanh nghiệp toàn diện trong một hệ thống</h2><p>Không chỉ quản lý hoạt động bán hàng, OmniFlow AI còn hướng đến việc nâng cao chất lượng phục vụ và trải nghiệm của khách hàng.</p></div>
+   <div class="cards">
+    <article class="card"><div class="card-icon">🛒</div><h3>Bán hàng & đơn hàng</h3><p>Quản lý giao dịch, theo dõi trạng thái đơn hàng và lịch sử bán hàng.</p></article>
+    <article class="card"><div class="card-icon">📦</div><h3>Sản phẩm & kho</h3><p>Kiểm soát danh mục, giá bán, tồn kho và hoạt động nhập xuất.</p></article>
+    <article class="card"><div class="card-icon">👥</div><h3>Khách hàng & CRM</h3><p>Lưu trữ hồ sơ, lịch sử mua hàng và tương tác với khách hàng.</p></article>
+    <article class="card"><div class="card-icon">★</div><h3>Đánh giá khách hàng</h3><p>Thu thập đánh giá, phân loại phản hồi và theo dõi chất lượng dịch vụ.</p></article>
+    <article class="card"><div class="card-icon">💬</div><h3>Trải nghiệm khách hàng</h3><p>Khảo sát hài lòng, theo dõi hành trình và phát hiện vấn đề trong trải nghiệm.</p></article>
+    <article class="card"><div class="card-icon">✦</div><h3>AI Assistant</h3><p>Hỗ trợ tra cứu, phân tích dữ liệu và gợi ý hoạt động quản trị.</p></article>
+   </div>
+   <div style="text-align:center;margin-top:30px"><button class="btn btn-primary" onclick="go('solutions')">Khám phá tất cả giải pháp →</button></div>
+  </div>
+ </section>
+ <section class="section light">
+  <div class="container split">
+   <div class="mockup"><div class="mockup-inner"><h3>Trung tâm quản lý khách hàng</h3><div class="data-row"><span>Khách hàng mới</span><strong>128</strong></div><div class="data-row"><span>Đánh giá trung bình</span><strong style="color:#e7a333">★ 4.8/5</strong></div><div class="data-row"><span>Phản hồi cần xử lý</span><strong>12</strong></div><div class="data-row"><span>Khảo sát đã hoàn thành</span><strong>356</strong></div></div></div>
+   <div class="split-copy"><div class="kicker">VƯỢT XA QUẢN LÝ BÁN HÀNG</div><h2>Không chỉ bán được hàng, mà còn giữ chân khách hàng</h2><p>OmniFlow AI định hướng kết nối dữ liệu kinh doanh với thông tin phản hồi và trải nghiệm khách hàng, giúp doanh nghiệp hiểu rõ hơn nhu cầu của người mua.</p><ul class="checks"><li>Quản lý đánh giá và phản hồi khách hàng.</li><li>Ghi nhận ý kiến sau khi mua hàng.</li><li>Theo dõi mức độ hài lòng và chất lượng phục vụ.</li><li>Hỗ trợ chăm sóc khách hàng bằng AI Assistant.</li></ul><button class="btn btn-primary" onclick="go('experience')">Tìm hiểu trải nghiệm khách hàng →</button></div>
+  </div>
+ </section>
+ <section class="section"><div class="container"><div class="section-head"><div class="kicker">DÀNH CHO NHIỀU MÔ HÌNH</div><h2>Một nền tảng, nhiều giải pháp kinh doanh</h2></div><div class="industry-grid"><article class="industry"><div>🛍️</div><h3>Cửa hàng bán lẻ</h3><p>Quản lý sản phẩm, kho và đơn hàng.</p></article><article class="industry"><div>💻</div><h3>Kinh doanh trực tuyến</h3><p>Quản lý khách hàng và giao dịch online.</p></article><article class="industry"><div>🏢</div><h3>Doanh nghiệp vừa và nhỏ</h3><p>Kiểm soát dữ liệu và vận hành tập trung.</p></article><article class="industry"><div>☕</div><h3>Nhà hàng & dịch vụ</h3><p>Quản lý hoạt động và chất lượng phục vụ.</p></article></div></div></section>
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">BẮT ĐẦU ĐƠN GIẢN</div><h2>4 bước để bắt đầu với OmniFlow AI</h2></div><div class="steps"><article class="step"><b>01</b><h3>Đăng ký tài khoản</h3><p>Tạo không gian làm việc cho doanh nghiệp.</p></article><article class="step"><b>02</b><h3>Thiết lập hệ thống</h3><p>Cập nhật thông tin, sản phẩm và nhân viên.</p></article><article class="step"><b>03</b><h3>Vận hành kinh doanh</h3><p>Quản lý các nghiệp vụ trên cùng nền tảng.</p></article><article class="step"><b>04</b><h3>Phân tích & phát triển</h3><p>Quan sát báo cáo và cải thiện hoạt động.</p></article></div></div></section>
+ <section class="section"><div class="container"><div class="section-head"><div class="kicker">LỰA CHỌN GÓI DỊCH VỤ</div><h2>Bắt đầu từ quy mô của bạn</h2><p>Khám phá các gói dịch vụ được thiết kế theo nhu cầu quản lý khác nhau.</p></div><div class="price-grid">
+  <article class="price-card"><h3>Starter</h3><p class="desc">Cho cá nhân kinh doanh và cửa hàng nhỏ.</p><div class="price">299.000đ <small>/ tháng</small></div><ul><li>Quản lý sản phẩm và đơn hàng</li><li>Quản lý kho cơ bản</li><li>Quản lý khách hàng</li><li>Đánh giá khách hàng cơ bản</li><li>2 tài khoản nhân viên</li></ul><button class="btn btn-outline" onclick="go('pricing')">Xem chi tiết</button></article>
+  <article class="price-card featured"><div class="tag">ĐƯỢC ĐỀ XUẤT</div><h3>Business</h3><p class="desc">Cho doanh nghiệp đang phát triển.</p><div class="price">699.000đ <small>/ tháng</small></div><ul><li>Tất cả tính năng Starter</li><li>Báo cáo nâng cao</li><li>Quản lý đánh giá & phản hồi</li><li>Khảo sát trải nghiệm khách hàng</li><li>Chatbot AI cơ bản</li><li>10 tài khoản nhân viên</li></ul><button class="btn btn-primary" onclick="go('pricing')">Xem chi tiết</button></article>
+  <article class="price-card"><h3>Enterprise</h3><p class="desc">Cho doanh nghiệp cần mở rộng quy mô.</p><div class="price">1.499.000đ <small>/ tháng</small></div><ul><li>Tất cả tính năng Business</li><li>Phân tích trải nghiệm chuyên sâu</li><li>Chatbot AI nâng cao</li><li>Phân quyền chuyên sâu</li><li>Quản lý nhiều đơn vị</li><li>Hỗ trợ ưu tiên</li></ul><button class="btn btn-outline" onclick="go('pricing')">Xem chi tiết</button></article>
+ </div></div></section>
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">CẦN HỖ TRỢ?</div><h2>OmniFlow AI luôn sẵn sàng đồng hành</h2><p>Tìm hiểu nền tảng và lựa chọn giải pháp phù hợp với doanh nghiệp.</p><button class="btn btn-primary" onclick="go('contact')">Liên hệ tư vấn →</button></div></div></section>
+</main>
+
+<!-- TRANG GIẢI PHÁP -->
+<main class="page" id="solutions">
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">GIẢI PHÁP OMNIFLOW AI</div><h2>Hệ sinh thái quản trị doanh nghiệp toàn diện</h2><p>Các nhóm công cụ được định hướng kết nối để hỗ trợ hoạt động kinh doanh và chăm sóc khách hàng.</p></div><div class="cards">
+  <article class="card"><div class="card-icon">🛒</div><h3>Quản lý bán hàng</h3><p>Theo dõi giao dịch, đơn hàng, trạng thái thanh toán và hoạt động bán hàng.</p></article>
+  <article class="card"><div class="card-icon">📦</div><h3>Quản lý sản phẩm</h3><p>Quản lý danh mục, mã sản phẩm, giá bán và thông tin hàng hóa.</p></article>
+  <article class="card"><div class="card-icon">🏬</div><h3>Quản lý kho</h3><p>Kiểm soát tồn kho, nhập hàng, xuất hàng và cảnh báo hàng sắp hết.</p></article>
+  <article class="card"><div class="card-icon">👥</div><h3>CRM khách hàng</h3><p>Quản lý hồ sơ, lịch sử mua sắm, phân nhóm và chăm sóc khách hàng.</p></article>
+  <article class="card"><div class="card-icon">🚚</div><h3>Nhà cung cấp</h3><p>Quản lý đối tác, thông tin nguồn hàng và lịch sử mua hàng.</p></article>
+  <article class="card"><div class="card-icon">📊</div><h3>Báo cáo kinh doanh</h3><p>Tổng hợp doanh thu, đơn hàng, sản phẩm và hiệu quả vận hành.</p></article>
+  <article class="card"><div class="card-icon">★</div><h3>Quản lý đánh giá</h3><p>Thu thập nhận xét, chấm điểm và quản lý phản hồi từ khách hàng.</p></article>
+  <article class="card"><div class="card-icon">💬</div><h3>Customer Experience</h3><p>Khảo sát hài lòng, ghi nhận trải nghiệm và theo dõi vấn đề dịch vụ.</p></article>
+  <article class="card"><div class="card-icon">✦</div><h3>AI Assistant</h3><p>Hỗ trợ tra cứu, tổng hợp và đề xuất dựa trên dữ liệu kinh doanh.</p></article>
+ </div></div></section>
+ <section class="section"><div class="container split"><div class="split-copy"><div class="kicker">CUSTOMER EXPERIENCE</div><h2>Biến phản hồi thành cơ hội cải thiện dịch vụ</h2><p>Doanh nghiệp không chỉ cần biết khách hàng đã mua gì, mà còn cần hiểu họ cảm nhận như thế nào trong quá trình mua sắm.</p><ul class="checks"><li>Ghi nhận đánh giá theo sản phẩm và dịch vụ.</li><li>Quản lý phản hồi tích cực và tiêu cực.</li><li>Khảo sát mức độ hài lòng sau giao dịch.</li><li>Tổng hợp những vấn đề cần ưu tiên xử lý.</li></ul></div><div class="mockup"><div class="mockup-inner"><h3>Tổng quan trải nghiệm khách hàng</h3><div class="data-row"><span>Điểm đánh giá trung bình</span><strong>★ 4.8/5</strong></div><div class="data-row"><span>Phản hồi mới</span><strong>86</strong></div><div class="data-row"><span>Yêu cầu đang xử lý</span><strong>12</strong></div><div class="data-row"><span>Khảo sát hoàn thành</span><strong>356</strong></div><p style="font-size:9px;color:#95a2b5">Số liệu mô phỏng giao diện.</p></div></div></div></section>
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">AI-POWERED MANAGEMENT</div><h2>AI hỗ trợ doanh nghiệp ra quyết định</h2><p>Định hướng ứng dụng trí tuệ nhân tạo trong việc tra cứu thông tin, phân tích hoạt động và hỗ trợ chăm sóc khách hàng.</p></div><div class="cards"><article class="card"><div class="card-icon">🤖</div><h3>Chatbot hỗ trợ</h3><p>Trả lời câu hỏi thường gặp và hỗ trợ tra cứu thông tin.</p></article><article class="card"><div class="card-icon">📈</div><h3>Phân tích dữ liệu</h3><p>Hỗ trợ đọc báo cáo và nhận diện biến động kinh doanh.</p></article><article class="card"><div class="card-icon">💡</div><h3>Gợi ý vận hành</h3><p>Định hướng đề xuất dựa trên thông tin doanh nghiệp cung cấp.</p></article></div></div></section>
+ <section class="section"><div class="container" style="text-align:center"><h2>Khám phá gói giải pháp phù hợp</h2><p style="color:var(--muted);font-size:12px">Chọn gói dịch vụ theo nhu cầu hiện tại và kế hoạch phát triển.</p><button class="btn btn-primary" onclick="go('pricing')">Xem bảng giá →</button></div></section>
+</main>
+
+<!-- TRANG TRẢI NGHIỆM KHÁCH HÀNG -->
+<main class="page" id="experience">
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">CUSTOMER EXPERIENCE MANAGEMENT</div><h2>Lắng nghe khách hàng. Thấu hiểu trải nghiệm. Cải thiện dịch vụ.</h2><p>OmniFlow AI hướng đến kết nối đánh giá, phản hồi và khảo sát để doanh nghiệp có góc nhìn rõ ràng hơn về chất lượng phục vụ.</p></div>
+  <div class="review-grid">
+   <div class="review-box"><h3>Đánh giá khách hàng</h3><div class="stars">★★★★★</div><div class="review-score">4.8/5</div><p>Điểm đánh giá minh họa trên giao diện quản lý.</p><div class="rating-row"><span>5 ★</span><div class="track"><i style="width:85%"></i></div><span>85%</span></div><div class="rating-row"><span>4 ★</span><div class="track"><i style="width:10%"></i></div><span>10%</span></div><div class="rating-row"><span>3 ★</span><div class="track"><i style="width:3%"></i></div><span>3%</span></div><div class="rating-row"><span>2 ★</span><div class="track"><i style="width:1%"></i></div><span>1%</span></div><div class="rating-row"><span>1 ★</span><div class="track"><i style="width:1%"></i></div><span>1%</span></div></div>
+   <div class="review-box"><h3>Phản hồi gần đây</h3><div class="review-quote"><div class="stars">★★★★★</div>“Quy trình mua hàng thuận tiện, nhân viên hỗ trợ nhiệt tình.”<br><b>Khách hàng A · Đánh giá minh họa</b></div><div class="review-quote"><div class="stars">★★★★☆</div>“Sản phẩm tốt, mong muốn thời gian giao hàng nhanh hơn.”<br><b>Khách hàng B · Đánh giá minh họa</b></div></div>
+   <div class="review-box"><h3>Khảo sát trải nghiệm</h3><div class="review-score">86%</div><p>Tỷ lệ hài lòng minh họa từ một bộ dữ liệu giả lập.</p><div class="track" style="height:12px"><i style="width:86%;background:var(--green)"></i></div><p>Hệ thống được định hướng hỗ trợ tạo khảo sát sau mua hàng, thu thập ý kiến và tổng hợp kết quả.</p></div>
+   <div class="review-box"><h3>Hành trình khách hàng</h3><div class="data-row"><span>Khám phá sản phẩm</span><strong>01</strong></div><div class="data-row"><span>Tìm hiểu và tư vấn</span><strong>02</strong></div><div class="data-row"><span>Đặt hàng và thanh toán</span><strong>03</strong></div><div class="data-row"><span>Nhận hàng và đánh giá</span><strong>04</strong></div><div class="data-row"><span>Chăm sóc sau mua</span><strong>05</strong></div></div>
+  </div>
+ </div></section>
+ <section class="section"><div class="container split"><div class="split-copy"><div class="kicker">LỢI ÍCH CHO DOANH NGHIỆP</div><h2>Hiểu khách hàng để nâng cao chất lượng phục vụ</h2><ul class="checks"><li>Nhận biết điểm mạnh và hạn chế trong dịch vụ.</li><li>Ưu tiên xử lý các phản hồi chưa hài lòng.</li><li>Đo lường cảm nhận của khách hàng.</li><li>Cải thiện hoạt động chăm sóc sau mua.</li></ul><button class="btn btn-primary" onclick="go('pricing')">Xem gói có Customer Experience →</button></div><div class="mockup"><div class="mockup-inner"><h3>Quản lý phản hồi</h3><div class="data-row"><span>Phản hồi mới</span><strong>86</strong></div><div class="data-row"><span>Đã phản hồi</span><strong>74</strong></div><div class="data-row"><span>Đang xử lý</span><strong>12</strong></div><div class="data-row"><span>Điểm hài lòng</span><strong>4.8/5</strong></div></div></div></div></section>
+</main>
+
+<!-- TRANG BẢNG GIÁ -->
+<main class="page" id="pricing">
+ <section class="section light"><div class="container">
+  <div class="section-head"><div class="kicker">PRICING PLANS</div><h2>Chọn gói quản trị phù hợp với doanh nghiệp</h2><p>Mở rộng khả năng quản lý từ những nghiệp vụ cơ bản đến phân tích trải nghiệm khách hàng và ứng dụng AI.</p></div>
+  <div class="price-grid">
+   <article class="price-card"><h3>Starter</h3><p class="desc">Dành cho cá nhân kinh doanh và cửa hàng nhỏ.</p><div class="price">299.000đ <small>/ tháng</small></div><p style="font-size:9px;color:var(--muted)">Thanh toán theo tháng</p><button class="btn btn-outline" onclick="choosePlan('Starter')">Chọn gói này</button><ul><li>Quản lý sản phẩm</li><li>Quản lý đơn hàng</li><li>Quản lý kho cơ bản</li><li>Quản lý khách hàng</li><li>Báo cáo doanh thu cơ bản</li><li>Đánh giá khách hàng cơ bản</li><li>2 tài khoản nhân viên</li><li>Hỗ trợ tiêu chuẩn</li></ul></article>
+   <article class="price-card featured"><div class="tag">ĐƯỢC ĐỀ XUẤT</div><h3>Business</h3><p class="desc">Dành cho doanh nghiệp đang phát triển.</p><div class="price">699.000đ <small>/ tháng</small></div><p style="font-size:9px;color:var(--muted)">Thanh toán theo tháng</p><button class="btn btn-primary" onclick="choosePlan('Business')">Chọn gói này</button><ul><li>Tất cả tính năng Starter</li><li>Báo cáo kinh doanh nâng cao</li><li>Quản lý đánh giá và phản hồi</li><li>Khảo sát trải nghiệm khách hàng</li><li>Phân tích mức độ hài lòng</li><li>Chatbot AI cơ bản</li><li>10 tài khoản nhân viên</li><li>Hỗ trợ ưu tiên</li></ul></article>
+   <article class="price-card"><h3>Enterprise</h3><p class="desc">Dành cho doanh nghiệp cần mở rộng quy mô.</p><div class="price">1.499.000đ <small>/ tháng</small></div><p style="font-size:9px;color:var(--muted)">Thanh toán theo tháng</p><button class="btn btn-outline" onclick="choosePlan('Enterprise')">Chọn gói này</button><ul><li>Tất cả tính năng Business</li><li>Phân tích trải nghiệm chuyên sâu</li><li>Chatbot AI nâng cao</li><li>Phân quyền theo vai trò</li><li>Quản lý nhiều đơn vị</li><li>Hỗ trợ tích hợp theo nhu cầu</li><li>Tài khoản theo thỏa thuận</li><li>Hỗ trợ riêng</li></ul></article>
+  </div>
+  <p class="price-foot">Giá đề xuất để xây dựng mô hình kinh doanh OmniFlow AI. Chưa bao gồm các chi phí tích hợp bên thứ ba hoặc sử dụng AI vượt hạn mức dự kiến. Chính sách thực tế cần được xác lập trước khi thương mại hóa.</p>
+ </div></section>
+ <section class="section"><div class="container"><div class="section-head"><div class="kicker">SO SÁNH GÓI DỊCH VỤ</div><h2>Khác biệt giữa các gói</h2></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;background:white;font-size:11px;min-width:600px"><thead><tr style="background:#edf3ff;color:var(--navy)"><th style="padding:15px;text-align:left">Tính năng</th><th>Starter</th><th>Business</th><th>Enterprise</th></tr></thead><tbody id="comparison"></tbody></table></div></div></section>
+</main>
+
+<!-- TRANG VỀ CHÚNG TÔI -->
+<main class="page" id="about">
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">ABOUT OMNIFLOW AI</div><h2>Đơn giản hóa quản trị. Kết nối mọi hoạt động.</h2><p>OmniFlow AI được định hướng trở thành nền tảng quản trị doanh nghiệp SaaS, giúp các hoạt động kinh doanh được tổ chức và theo dõi trên cùng một hệ thống.</p></div><div class="split"><div class="split-copy"><h2>Sứ mệnh của chúng tôi</h2><p>Hỗ trợ doanh nghiệp tiếp cận công nghệ quản trị hiện đại, giảm sự phân tán dữ liệu và cải thiện hiệu quả vận hành.</p><h2>Tầm nhìn</h2><p>Phát triển hệ sinh thái quản trị linh hoạt, kết hợp dữ liệu và trí tuệ nhân tạo để hỗ trợ doanh nghiệp tăng trưởng.</p></div><div class="mockup"><div class="mockup-inner"><h3>OmniFlow AI</h3><div class="data-row"><span>Định hướng</span><strong>All-in-one SaaS</strong></div><div class="data-row"><span>Khách hàng mục tiêu</span><strong>Doanh nghiệp</strong></div><div class="data-row"><span>Công nghệ định hướng</span><strong>Cloud & AI</strong></div><div class="data-row"><span>Triết lý</span><strong>Đơn giản, kết nối</strong></div></div></div></div></div></section>
+</main>
+
+<!-- TRANG LIÊN HỆ -->
+<main class="page" id="contact">
+ <section class="section light"><div class="container"><div class="section-head"><div class="kicker">CONTACT US</div><h2>Hãy để OmniFlow AI đồng hành cùng bạn</h2><p>Đăng ký nhận tư vấn về các giải pháp quản trị và gói dịch vụ.</p></div><div class="contact-grid"><div><h2>Chúng tôi muốn lắng nghe nhu cầu của bạn.</h2><p>Hãy chia sẻ mô hình kinh doanh và những khó khăn trong quá trình quản lý. Đội ngũ OmniFlow AI sẽ hỗ trợ tư vấn giải pháp phù hợp.</p><p>✉ contact@omniflow.ai <small>(email minh họa)</small></p><p>✦ One Platform. Every Business Flow.</p></div><form class="form" id="contactForm"><label>Họ và tên</label><input required name="name" placeholder="Nhập họ tên"><label>Email</label><input required type="email" name="email" placeholder="name@example.com"><label>Số điện thoại</label><input required name="phone" placeholder="Nhập số điện thoại"><label>Gói dịch vụ quan tâm</label><select name="plan" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:8px"><option>Chưa xác định</option><option>Starter</option><option>Business</option><option>Enterprise</option></select><label>Nội dung</label><textarea name="message" placeholder="Chia sẻ nhu cầu của bạn..."></textarea><button class="btn btn-primary" type="submit">Gửi yêu cầu tư vấn →</button><p style="font-size:9px">Form hiện là bản demo, cần backend để tiếp nhận thông tin thực tế.</p></form></div></div></section>
+</main>
+
+<footer><div class="container"><div class="footer-grid">
+ <div><a class="brand" href="#" onclick="go('home');return false"><div class="brand-icon">O</div><div class="brand-name" style="color:white">OmniFlow <span>AI</span></div></a><p>Nền tảng quản trị doanh nghiệp thông minh. Một hệ thống kết nối các hoạt động kinh doanh.</p></div>
+ <div><h4>Khám phá</h4><a onclick="go('home')">Trang chủ</a><a onclick="go('solutions')">Giải pháp</a><a onclick="go('about')">Về chúng tôi</a></div>
+ <div><h4>Dịch vụ</h4><a onclick="go('experience')">Trải nghiệm khách hàng</a><a onclick="go('pricing')">Bảng giá</a><a onclick="go('solutions')">AI Assistant</a></div>
+ <div><h4>Hỗ trợ</h4><a onclick="go('contact')">Liên hệ</a><a onclick="go('contact')">Tư vấn</a></div>
+ </div><div class="copy">© 2026 OmniFlow AI. All rights reserved. · One Platform. Every Business Flow.</div></div></footer>
+
+<!-- CHATBOT -->
+<button class="chat-launch" id="chatLaunch" aria-label="Chat với OmniFlow AI">✦</button>
+<div class="chat-window" id="chatWindow">
+ <div class="chat-head"><div><strong>OmniFlow AI Assistant</strong><small>● Trợ lý tư vấn trực tuyến · Demo</small></div><button id="chatClose">×</button></div>
+ <div class="chat-messages" id="messages"><div class="msg bot">Xin chào! 👋 Mình là trợ lý OmniFlow AI. Mình có thể giúp bạn tìm hiểu giải pháp, bảng giá và các tính năng của nền tảng.</div></div>
+ <div class="quick-questions">
+  <button data-question="OmniFlow AI có tính năng gì?">Tính năng</button>
+  <button data-question="Bảng giá thế nào?">Bảng giá</button>
+  <button data-question="Có chatbot AI không?">Chatbot AI</button>
+  <button data-question="Có quản lý đánh giá khách hàng không?">Đánh giá khách hàng</button>
+ </div>
+ <div class="chat-input"><input id="chatInput" placeholder="Nhập câu hỏi của bạn..."><button id="chatSend">➤</button></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// CHUYỂN TRANG NỘI BỘ
+const pageNames={home:"Trang chủ",solutions:"Giải pháp",experience:"Khách hàng",pricing:"Bảng giá",about:"Về chúng tôi",contact:"Liên hệ"};
+function go(id){
+ if(!document.getElementById(id))return;
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ const page=document.getElementById(id);
+ page.classList.add('active');
+ document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ document.getElementById('nav').classList.remove('show');
+ window.scrollTo({top:0,behavior:'instant'});
+ history.pushState({page:id},'', '#'+id);
+}
+document.querySelectorAll('.nav-links button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[onclick*="go("]').forEach(el=>{});
+// Hỗ trợ nút back/forward của trình duyệt
+window.addEventListener('popstate',()=>{
+ const id=location.hash.replace('#','')||'home';
+ if(document.getElementById(id)){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo(0,0);
+ }
+});
+document.getElementById('toggle').addEventListener('click',()=>document.getElementById('nav').classList.toggle('show'));
+const startPage=location.hash.replace('#','');
+if(startPage&&document.getElementById(startPage))go(startPage);
+else history.replaceState({page:'home'},'','#home');
+
+// BẢNG SO SÁNH
+const comparison=[
+['Sản phẩm, đơn hàng, kho','✓','✓','✓'],
+['Quản lý khách hàng','✓','✓','✓'],
+['Báo cáo','Cơ bản','Nâng cao','Chuyên sâu'],
+['Đánh giá khách hàng','Cơ bản','✓','✓'],
+['Khảo sát trải nghiệm','—','✓','✓'],
+['Phân tích hài lòng','—','✓','Nâng cao'],
+['Chatbot AI','—','Cơ bản','Nâng cao'],
+['Phân quyền nhân viên','2 tài khoản','10 tài khoản','Theo nhu cầu'],
+['Hỗ trợ','Tiêu chuẩn','Ưu tiên','Riêng']
+];
+document.getElementById('comparison').innerHTML=comparison.map(r=>`<tr>${r.map((v,i)=>`<td style="padding:14px;border-bottom:1px solid var(--line);text-align:${i?'center':'left'};color:${i&&v==='✓'?'#159d73':'#53647a'};font-weight:${i?'600':'500'}">${v}</td>`).join('')}</tr>`).join('');
+function choosePlan(plan){
+ go('contact');
+ document.querySelector('[name="plan"]').value=plan;
+ document.querySelector('.contact-grid').scrollIntoView({block:'start'});
+}
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+
+// CHATBOT DEMO
+const chatWindow=document.getElementById('chatWindow');
+const messages=document.getElementById('messages');
+const chatInput=document.getElementById('chatInput');
+document.getElementById('chatLaunch').onclick=()=>chatWindow.classList.toggle('open');
+document.getElementById('chatClose').onclick=()=>chatWindow.classList.remove('open');
+function addMessage(text,type){
+ const d=document.createElement('div');
+ d.className='msg '+type;
+ d.textContent=text;
+ messages.appendChild(d);
+ messages.scrollTop=messages.scrollHeight;
+}
+function botReply(q){
+ const s=q.toLowerCase();
+ if(s.includes('giá')||s.includes('gói')||s.includes('phí'))
+ return 'OmniFlow AI có 3 gói đề xuất:\n• Starter: 299.000đ/tháng\n• Business: 699.000đ/tháng\n• Enterprise: 1.499.000đ/tháng\n\nBạn có thể mở mục Bảng giá để xem chi tiết tính năng từng gói.';
+ if(s.includes('đánh giá')||s.includes('trải nghiệm')||s.includes('hài lòng')||s.includes('phản hồi'))
+ return 'OmniFlow AI định hướng cung cấp module quản lý đánh giá và trải nghiệm khách hàng: thu thập đánh giá sao, ghi nhận phản hồi, khảo sát mức độ hài lòng và theo dõi hành trình khách hàng. Các tính năng nâng cao nằm trong gói Business và Enterprise.';
+ if(s.includes('chatbot')||s.includes('ai'))
+ return 'OmniFlow AI có định hướng tích hợp AI Assistant và chatbot hỗ trợ. Gói Business có chatbot cơ bản; Enterprise có định hướng chatbot nâng cao. Phiên bản trên website hiện là chatbot demo, chưa kết nối mô hình AI thực tế.';
+ if(s.includes('tính năng')||s.includes('giải pháp'))
+ return 'OmniFlow AI hướng đến quản lý bán hàng, sản phẩm, đơn hàng, kho, khách hàng, nhà cung cấp, báo cáo, đánh giá khách hàng, khảo sát trải nghiệm và AI Assistant. Bạn có thể xem trang Giải pháp để biết thêm.';
+ if(s.includes('đăng ký')||s.includes('dùng thử')||s.includes('liên hệ'))
+ return 'Bạn có thể vào mục Liên hệ trên menu để gửi yêu cầu tư vấn. Biểu mẫu hiện tại là giao diện demo và cần kết nối backend để nhận thông tin.';
+ if(s.includes('xin chào')||s.includes('hello')||s.includes('chào'))
+ return 'Xin chào bạn! Rất vui được hỗ trợ. Bạn muốn tìm hiểu tính năng, bảng giá hay chatbot AI của OmniFlow?';
+ return 'Cảm ơn câu hỏi của bạn! Mình hiện là chatbot demo của OmniFlow AI. Bạn có thể hỏi về tính năng, bảng giá, đánh giá khách hàng, trải nghiệm khách hàng hoặc AI Assistant.';
+}
+function sendChat(){
+ const q=chatInput.value.trim();
+ if(!q)return;
+ addMessage(q,'user');
+ chatInput.value='';
+ setTimeout(()=>addMessage(botReply(q),'bot'),350);
+}
+document.getElementById('chatSend').onclick=sendChat;
+chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+document.querySelectorAll('.quick-questions button').forEach(b=>b.onclick=()=>{
+ chatInput.value=b.dataset.question;
+ sendChat();
+});
+
+// FORM DEMO
+document.getElementById('contactForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const t=document.getElementById('toast');
+ t.textContent='Thông tin đã được kiểm tra. Cần kết nối backend để tiếp nhận yêu cầu thực tế.';
+ t.classList.add('show');
+ setTimeout(()=>t.classList.remove('show'),4500);
+});
+</script>
+</body>
+</html>
