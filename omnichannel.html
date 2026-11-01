@@ -1,9 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
- <meta name="google-site-verification" content="BLv1Z8i32uHFH-6caFXvwHD2ns7RwN3ZefwoIyhT4r0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OmniFlow AI | Quản trị kinh doanh thông minh</title>
 <meta name="description" content="OmniFlow AI - Nền tảng quản trị doanh nghiệp, bán hàng, kho hàng, khách hàng và trải nghiệm khách hàng.">
@@ -247,7 +245,7 @@ header{height:66px}
      <button class="btn btn-orange" onclick="go('pricing')">Khám phá gói dịch vụ →</button>
      <button class="btn btn-outline" onclick="go('solutions')">Tìm hiểu giải pháp</button>
     </div>
-    <div class="hero-small"><b>✓</b> Quản lý tập trung &nbsp; <b>✓</b> Dữ liệu đồng bộ &nbsp; <b>✓</b> Hỗ trợ AI</div>
+    <div class="hero-small"><b>✓</b> Quản lý tập trung   <b>✓</b> Dữ liệu đồng bộ   <b>✓</b> Hỗ trợ AI</div>
    </div>
    <div class="visual-wrap">
     <div class="dashboard">
@@ -379,107 +377,155 @@ header{height:66px}
 
 <script>
 // CHUYỂN TRANG NỘI BỘ
-const pageNames={home:"Trang chủ",solutions:"Giải pháp",experience:"Khách hàng",pricing:"Bảng giá",about:"Về chúng tôi",contact:"Liên hệ"};
 function go(id){
- if(!document.getElementById(id))return;
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- const page=document.getElementById(id);
+ if(!document.getElementById(id)) return;
+ document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+ const page = document.getElementById(id);
  page.classList.add('active');
- document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
- document.getElementById('nav').classList.remove('show');
- window.scrollTo({top:0,behavior:'instant'});
- history.pushState({page:id},'', '#'+id);
+ document.querySelectorAll('.nav-links button').forEach(b => b.classList.toggle('active', b.dataset.page === id));
+ const nav = document.getElementById('nav');
+ if(nav) nav.classList.remove('show');
+ window.scrollTo({top: 0, behavior: 'instant'});
+ history.pushState({page: id}, '', '#' + id);
 }
-document.querySelectorAll('.nav-links button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
-document.querySelectorAll('[onclick*="go("]').forEach(el=>{});
+
+document.querySelectorAll('.nav-links button').forEach(b => {
+ b.addEventListener('click', () => go(b.dataset.page));
+});
+
 // Hỗ trợ nút back/forward của trình duyệt
-window.addEventListener('popstate',()=>{
- const id=location.hash.replace('#','')||'home';
+window.addEventListener('popstate', () => {
+ const id = location.hash.replace('#', '') || 'home';
  if(document.getElementById(id)){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
- window.scrollTo(0,0);
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.toggle('active', b.dataset.page === id));
+  window.scrollTo(0, 0);
  }
 });
-document.getElementById('toggle').addEventListener('click',()=>document.getElementById('nav').classList.toggle('show'));
-const startPage=location.hash.replace('#','');
-if(startPage&&document.getElementById(startPage))go(startPage);
-else history.replaceState({page:'home'},'','#home');
+
+const toggleBtn = document.getElementById('toggle');
+if(toggleBtn){
+ toggleBtn.addEventListener('click', () => {
+  const nav = document.getElementById('nav');
+  if(nav) nav.classList.toggle('show');
+ });
+}
+
+// Khởi tạo trang ban đầu dựa trên Hash URL
+const startPage = location.hash.replace('#', '');
+if(startPage && document.getElementById(startPage)){
+ go(startPage);
+} else {
+ history.replaceState({page: 'home'}, '', '#home');
+}
 
 // BẢNG SO SÁNH
-const comparison=[
-['Sản phẩm, đơn hàng, kho','✓','✓','✓'],
-['Quản lý khách hàng','✓','✓','✓'],
-['Báo cáo','Cơ bản','Nâng cao','Chuyên sâu'],
-['Đánh giá khách hàng','Cơ bản','✓','✓'],
-['Khảo sát trải nghiệm','—','✓','✓'],
-['Phân tích hài lòng','—','✓','Nâng cao'],
-['Chatbot AI','—','Cơ bản','Nâng cao'],
-['Phân quyền nhân viên','2 tài khoản','10 tài khoản','Theo nhu cầu'],
-['Hỗ trợ','Tiêu chuẩn','Ưu tiên','Riêng']
+const comparison = [
+ ['Sản phẩm, đơn hàng, kho','✓','✓','✓'],
+ ['Quản lý khách hàng','✓','✓','✓'],
+ ['Báo cáo','Cơ bản','Nâng cao','Chuyên sâu'],
+ ['Đánh giá khách hàng','Cơ bản','✓','✓'],
+ ['Khảo sát trải nghiệm','—','✓','✓'],
+ ['Phân tích hài lòng','—','✓','Nâng cao'],
+ ['Chatbot AI','—','Cơ bản','Nâng cao'],
+ ['Phân quyền nhân viên','2 tài khoản','10 tài khoản','Theo nhu cầu'],
+ ['Hỗ trợ','Tiêu chuẩn','Ưu tiên','Riêng']
 ];
-document.getElementById('comparison').innerHTML=comparison.map(r=>`<tr>${r.map((v,i)=>`<td style="padding:14px;border-bottom:1px solid var(--line);text-align:${i?'center':'left'};color:${i&&v==='✓'?'#159d73':'#53647a'};font-weight:${i?'600':'500'}">${v}</td>`).join('')}</tr>`).join('');
+
+const compEl = document.getElementById('comparison');
+if(compEl){
+ compEl.innerHTML = comparison.map(r => `<tr>${r.map((v, i) => `<td style="padding:14px;border-bottom:1px solid var(--line);text-align:${i ? 'center' : 'left'};color:${i && v === '✓' ? '#159d73' : '#53647a'};font-weight:${i ? '600' : '500'}">${v}</td>`).join('')}</tr>`).join('');
+}
+
 function choosePlan(plan){
  go('contact');
- document.querySelector('[name="plan"]').value=plan;
- document.querySelector('.contact-grid').scrollIntoView({block:'start'});
+ const planSelect = document.querySelector('[name="plan"]');
+ if(planSelect) planSelect.value = plan;
+ const contactGrid = document.querySelector('.contact-grid');
+ if(contactGrid) contactGrid.scrollIntoView({block: 'start'});
 }
 
 // FAQ
-document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+document.querySelectorAll('.faq-q').forEach(b => {
+ b.addEventListener('click', () => b.parentElement.classList.toggle('open'));
+});
 
 // CHATBOT DEMO
-const chatWindow=document.getElementById('chatWindow');
-const messages=document.getElementById('messages');
-const chatInput=document.getElementById('chatInput');
-document.getElementById('chatLaunch').onclick=()=>chatWindow.classList.toggle('open');
-document.getElementById('chatClose').onclick=()=>chatWindow.classList.remove('open');
-function addMessage(text,type){
- const d=document.createElement('div');
- d.className='msg '+type;
- d.textContent=text;
+const chatWindow = document.getElementById('chatWindow');
+const messages = document.getElementById('messages');
+const chatInput = document.getElementById('chatInput');
+const chatLaunch = document.getElementById('chatLaunch');
+const chatClose = document.getElementById('chatClose');
+
+if(chatLaunch) chatLaunch.onclick = () => chatWindow.classList.toggle('open');
+if(chatClose) chatClose.onclick = () => chatWindow.classList.remove('open');
+
+function addMessage(text, type){
+ if(!messages) return;
+ const d = document.createElement('div');
+ d.className = 'msg ' + type;
+ d.textContent = text;
  messages.appendChild(d);
- messages.scrollTop=messages.scrollHeight;
+ messages.scrollTop = messages.scrollHeight;
 }
+
 function botReply(q){
- const s=q.toLowerCase();
- if(s.includes('giá')||s.includes('gói')||s.includes('phí'))
- return 'OmniFlow AI có 3 gói đề xuất:\n• Starter: 299.000đ/tháng\n• Business: 699.000đ/tháng\n• Enterprise: 1.499.000đ/tháng\n\nBạn có thể mở mục Bảng giá để xem chi tiết tính năng từng gói.';
- if(s.includes('đánh giá')||s.includes('trải nghiệm')||s.includes('hài lòng')||s.includes('phản hồi'))
- return 'OmniFlow AI định hướng cung cấp module quản lý đánh giá và trải nghiệm khách hàng: thu thập đánh giá sao, ghi nhận phản hồi, khảo sát mức độ hài lòng và theo dõi hành trình khách hàng. Các tính năng nâng cao nằm trong gói Business và Enterprise.';
- if(s.includes('chatbot')||s.includes('ai'))
- return 'OmniFlow AI có định hướng tích hợp AI Assistant và chatbot hỗ trợ. Gói Business có chatbot cơ bản; Enterprise có định hướng chatbot nâng cao. Phiên bản trên website hiện là chatbot demo, chưa kết nối mô hình AI thực tế.';
- if(s.includes('tính năng')||s.includes('giải pháp'))
- return 'OmniFlow AI hướng đến quản lý bán hàng, sản phẩm, đơn hàng, kho, khách hàng, nhà cung cấp, báo cáo, đánh giá khách hàng, khảo sát trải nghiệm và AI Assistant. Bạn có thể xem trang Giải pháp để biết thêm.';
- if(s.includes('đăng ký')||s.includes('dùng thử')||s.includes('liên hệ'))
- return 'Bạn có thể vào mục Liên hệ trên menu để gửi yêu cầu tư vấn. Biểu mẫu hiện tại là giao diện demo và cần kết nối backend để nhận thông tin.';
- if(s.includes('xin chào')||s.includes('hello')||s.includes('chào'))
- return 'Xin chào bạn! Rất vui được hỗ trợ. Bạn muốn tìm hiểu tính năng, bảng giá hay chatbot AI của OmniFlow?';
+ const s = q.toLowerCase();
+ if(s.includes('giá') || s.includes('gói') || s.includes('phí'))
+  return 'OmniFlow AI có 3 gói đề xuất:\n• Starter: 299.000đ/tháng\n• Business: 699.000đ/tháng\n• Enterprise: 1.499.000đ/tháng\n\nBạn có thể mở mục Bảng giá để xem chi tiết tính năng từng gói.';
+ if(s.includes('đánh giá') || s.includes('trải nghiệm') || s.includes('hài lòng') || s.includes('phản hồi'))
+  return 'OmniFlow AI định hướng cung cấp module quản lý đánh giá và trải nghiệm khách hàng: thu thập đánh giá sao, ghi nhận phản hồi, khảo sát mức độ hài lòng và theo dõi hành trình khách hàng. Các tính năng nâng cao nằm trong gói Business và Enterprise.';
+ if(s.includes('chatbot') || s.includes('ai'))
+  return 'OmniFlow AI có định hướng tích hợp AI Assistant và chatbot hỗ trợ. Gói Business có chatbot cơ bản; Enterprise có định hướng chatbot nâng cao. Phiên bản trên website hiện là chatbot demo, chưa kết nối mô hình AI thực tế.';
+ if(s.includes('tính năng') || s.includes('giải pháp'))
+  return 'OmniFlow AI hướng đến quản lý bán hàng, sản phẩm, đơn hàng, kho, khách hàng, nhà cung cấp, báo cáo, đánh giá khách hàng, khảo sát trải nghiệm và AI Assistant. Bạn có thể xem trang Giải pháp để biết thêm.';
+ if(s.includes('đăng ký') || s.includes('dùng thử') || s.includes('liên hệ'))
+  return 'Bạn có thể vào mục Liên hệ trên menu để gửi yêu cầu tư vấn. Biểu mẫu hiện tại là giao diện demo và cần kết nối backend để nhận thông tin.';
+ if(s.includes('xin chào') || s.includes('hello') || s.includes('chào'))
+  return 'Xin chào bạn! Rất vui được hỗ trợ. Bạn muốn tìm hiểu tính năng, bảng giá hay chatbot AI của OmniFlow?';
  return 'Cảm ơn câu hỏi của bạn! Mình hiện là chatbot demo của OmniFlow AI. Bạn có thể hỏi về tính năng, bảng giá, đánh giá khách hàng, trải nghiệm khách hàng hoặc AI Assistant.';
 }
+
 function sendChat(){
- const q=chatInput.value.trim();
- if(!q)return;
- addMessage(q,'user');
- chatInput.value='';
- setTimeout(()=>addMessage(botReply(q),'bot'),350);
+ if(!chatInput) return;
+ const q = chatInput.value.trim();
+ if(!q) return;
+ addMessage(q, 'user');
+ chatInput.value = '';
+ setTimeout(() => addMessage(botReply(q), 'bot'), 350);
 }
-document.getElementById('chatSend').onclick=sendChat;
-chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
-document.querySelectorAll('.quick-questions button').forEach(b=>b.onclick=()=>{
- chatInput.value=b.dataset.question;
- sendChat();
+
+const chatSend = document.getElementById('chatSend');
+if(chatSend) chatSend.onclick = sendChat;
+if(chatInput){
+ chatInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter') sendChat();
+ });
+}
+
+document.querySelectorAll('.quick-questions button').forEach(b => {
+ b.onclick = () => {
+  if(chatInput){
+   chatInput.value = b.dataset.question;
+   sendChat();
+  }
+ };
 });
 
 // FORM DEMO
-document.getElementById('contactForm').addEventListener('submit',e=>{
- e.preventDefault();
- const t=document.getElementById('toast');
- t.textContent='Thông tin đã được kiểm tra. Cần kết nối backend để tiếp nhận yêu cầu thực tế.';
- t.classList.add('show');
- setTimeout(()=>t.classList.remove('show'),4500);
-});
+const contactForm = document.getElementById('contactForm');
+if(contactForm){
+ contactForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const t = document.getElementById('toast');
+  if(t){
+   t.textContent = 'Thông tin đã được kiểm tra. Cần kết nối backend để tiếp nhận yêu cầu thực tế.';
+   t.classList.add('show');
+   setTimeout(() => t.classList.remove('show'), 4500);
+  }
+ });
+}
 </script>
 </body>
 </html>
